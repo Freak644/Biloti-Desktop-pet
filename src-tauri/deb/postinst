@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+RULE="/etc/udev/rules.d/70-desktop-pet-input.rules"
+
+cat > "$RULE" <<'RULE_EOF'
+SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_INPUT_KEYBOARD}=="1", TAG+="uaccess"
+SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_INPUT_MOUSE}=="1", TAG+="uaccess"
+SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_INPUT_TOUCHPAD}=="1", TAG+="uaccess"
+RULE_EOF
+
+udevadm control --reload-rules
+udevadm trigger --action=change --subsystem-match=input --settle
+
+exit 0

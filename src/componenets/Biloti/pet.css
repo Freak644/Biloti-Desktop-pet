@@ -1,0 +1,454 @@
+.pet {
+    --pet-scale: 1;
+
+    position: relative;
+    width: 200px;
+    height: 200px;
+
+    cursor: grab;
+    user-select: none;
+
+    transform: scale(var(--pet-scale));
+    transform-origin: top left;
+}
+
+.pet:active {
+    cursor: grabbing;
+}
+
+.pet-face {
+  position: absolute;
+
+  left: 25px;
+  top: 35px;
+
+  width: 150px;
+  height: 125px;
+
+  border-radius: 45% 45% 42% 42%;
+
+  background: #f4a261;
+}
+
+.pet-ears {
+  position: absolute;
+
+  left: 25px;
+  top: 10px;
+
+  width: 150px;
+
+  display: flex;
+  justify-content: space-between;
+
+  z-index: 0;
+}
+
+.ear {
+  width: 55px;
+  height: 55px;
+
+  background: #f4a261;
+
+  transform: rotate(45deg);
+}
+
+.left-ear {
+  border-radius: 8px 50% 8px 50%;
+}
+
+.right-ear {
+  border-radius: 50% 8px 50% 8px;
+}
+
+.eyes {
+  position: absolute;
+
+  left: 25px;
+  right: 25px;
+  top: 38px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.eye {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    transform: scaleY(1);
+    transition: transform 70ms ease-in-out;
+    overflow: hidden;
+}
+
+
+.eye.blink {
+    transform: scaleY(0.08);
+    transition: transform 70ms ease-in-out;
+}
+
+.pupil {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #111;
+
+    will-change: transform;
+
+    transition: none;
+}
+
+.nose {
+  position: absolute;
+
+  left: 50%;
+  top: 78px;
+
+  width: 14px;
+  height: 10px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50% 50% 60% 60%;
+
+  background: #111;
+}
+
+.mouth {
+  position: absolute;
+
+  left: 50%;
+  top: 90px;
+
+  display: flex;
+  gap: 3px;
+
+  transform: translateX(-50%);
+}
+
+.mouth span {
+  width: 10px;
+  height: 8px;
+
+  border-bottom: 2px solid #111;
+}
+
+.pet-body {
+  position: absolute;
+
+  left: 55px;
+  top: 145px;
+
+  width: 90px;
+  height: 55px;
+
+  border-radius: 50% 50% 20% 20%;
+
+  background: #f4a261;
+}
+
+
+
+@keyframes clickReact {
+    0% {
+        transform: scale(var(--pet-scale));
+    }
+
+    40% {
+        transform:
+            scale(calc(var(--pet-scale) * 0.92))
+            translateY(4px);
+    }
+
+    70% {
+        transform:
+            scale(calc(var(--pet-scale) * 1.04))
+            translateY(-2px);
+    }
+
+    100% {
+        transform: scale(var(--pet-scale));
+    }
+}
+/* =========================================
+   BILOTI SPRITE
+   Source atlas: 512 × 768
+   Frame size:   64 × 64
+   Grid:         8 × 12
+   ========================================= */
+
+.biloti-sprite {
+    width: 200px;
+    height: 200px;
+
+    background-image: url("../../assets/biloti_sprite_sheet_transparent.png");
+    background-repeat: no-repeat;
+
+    /* 64px -> 200px */
+    background-size: 1600px 2400px;
+
+    background-position: 0 0;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+.biloti-canvas {
+    width: 200px;
+    height: 200px;
+
+    display: block;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+/* =========================================
+   IDLE
+   Row 0 — 8 frames
+   ========================================= */
+
+.biloti-sprite.idle {
+    animation: none;
+    background-position: 0 0;
+}
+
+@keyframes biloti-idle {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -1400px 0;
+    }
+}
+
+
+/* =========================================
+   BLINK
+   Row 1 — 6 frames
+   ========================================= */
+
+.biloti-sprite.blink {
+    animation: biloti-blink 600ms steps(6) 1;
+}
+
+@keyframes biloti-blink {
+    from {
+        background-position: 0 -200px;
+    }
+
+    to {
+        background-position: -1000px -200px;
+    }
+}
+
+
+/* =========================================
+   WALK
+   Row 2 — 8 frames
+   ========================================= */
+
+.biloti-sprite.walk {
+    animation: biloti-walk 600ms steps(8) infinite;
+}
+
+@keyframes biloti-walk {
+    from {
+        background-position: 0 -400px;
+    }
+
+    to {
+        background-position: -1400px -400px;
+    }
+}
+
+
+/* =========================================
+   RUN
+   Row 3 — 8 frames
+   ========================================= */
+
+.biloti-sprite.run {
+    animation: biloti-run 400ms steps(8) infinite;
+}
+
+@keyframes biloti-run {
+    from {
+        background-position: 0 -600px;
+    }
+
+    to {
+        background-position: -1400px -600px;
+    }
+}
+
+
+/* =========================================
+   JUMP
+   Row 4 — 6 frames
+   ========================================= */
+
+.biloti-sprite.jump {
+    animation: biloti-jump 500ms steps(6) 1;
+}
+
+@keyframes biloti-jump {
+    from {
+        background-position: 0 -800px;
+    }
+
+    to {
+        background-position: -1000px -800px;
+    }
+}
+
+
+/* =========================================
+   SIT
+   Row 5 — 4 frames
+   ========================================= */
+
+.biloti-sprite.sit {
+    animation: biloti-sit 500ms steps(4) infinite;
+}
+
+@keyframes biloti-sit {
+    from {
+        background-position: 0 -1000px;
+    }
+
+    to {
+        background-position: -600px -1000px;
+    }
+}
+
+
+/* =========================================
+   SLEEP
+   Row 6 — 6 frames
+   ========================================= */
+
+.biloti-sprite.sleep {
+    animation: biloti-sleep 800ms steps(6) infinite;
+}
+
+@keyframes biloti-sleep {
+    from {
+        background-position: 0 -1200px;
+    }
+
+    to {
+        background-position: -1000px -1200px;
+    }
+}
+
+
+/* =========================================
+   KEYBOARD — LEFT PAW
+   Row 7 — 6 frames
+   ========================================= */
+
+.biloti-sprite.keyboard-left {
+    animation: biloti-key-left 10ms steps(6) 1;
+}
+
+@keyframes biloti-key-left {
+    from {
+        background-position: 0 -1400px;
+    }
+
+    to {
+        background-position: -1000px -1400px;
+    }
+}
+
+
+/* =========================================
+   KEYBOARD — RIGHT PAW
+   Row 8 — 6 frames
+   ========================================= */
+
+.biloti-sprite.keyboard-right {
+    animation: biloti-key-right 10ms steps(6) 1;
+}
+
+@keyframes biloti-key-right {
+    from {
+        background-position: 0 -1600px;
+    }
+
+    to {
+        background-position: -1000px -1600px;
+    }
+}
+
+
+/* =========================================
+   HAPPY
+   Row 9 — 6 frames
+   ========================================= */
+
+.biloti-sprite.happy {
+    animation: biloti-happy 600ms steps(6) infinite;
+}
+
+@keyframes biloti-happy {
+    from {
+        background-position: 0 -1800px;
+    }
+
+    to {
+        background-position: -1000px -1800px;
+    }
+}
+
+
+/* =========================================
+   CURIOUS
+   Row 10 — 6 frames
+   ========================================= */
+
+.biloti-sprite.curious {
+    animation: biloti-curious 600ms steps(6) infinite;
+}
+
+@keyframes biloti-curious {
+    from {
+        background-position: 0 -2000px;
+    }
+
+    to {
+        background-position: -1000px -2000px;
+    }
+}
+
+
+/* =========================================
+   EXTRA
+   Row 11 — 8 frames
+   ========================================= */
+
+.biloti-sprite.extra {
+    animation: biloti-extra 700ms steps(8) infinite;
+}
+
+@keyframes biloti-extra {
+    from {
+        background-position: 0 -2200px;
+    }
+
+    to {
+        background-position: -1400px -2200px;
+    }
+}

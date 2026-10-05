@@ -1,0 +1,18 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default permissions for desktop-pet",
+  "windows": [
+    "main",
+    "biloti"
+  ],
+  "permissions": [
+    "core:default",
+    "opener:default",
+    "core:window:allow-start-dragging",
+    "core:window:allow-cursor-position",
+    "core:window:allow-hide",
+    "core:window:allow-show",
+    "core:window:allow-set-size"
+  ]
+}

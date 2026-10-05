@@ -1,0 +1,13 @@
+{
+  "bundle": {
+    "linux": {
+      "deb": {
+        "depends": [
+          "libudev1"
+        ],
+        "postInstallScript": "deb/postinst",
+        "desktopTemplate": "desktop-template.desktop"
+      }
+    }
+  }
+}
